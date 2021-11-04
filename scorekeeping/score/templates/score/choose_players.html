@@ -17,7 +17,6 @@
     {% block content %}
     <h1> Choose Players</h1>
     <p>{{game_desc}} - {{play_date}} - {{location}} - Playid: {{play_id_selected}}</p>
-    <p>Hand number: {{hand}}</p>
     
     <form method="POST">
       {% csrf_token %}

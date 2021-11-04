@@ -7,6 +7,11 @@ from play.models import Play
 
 # Create your models here.
 
+class PlaySession(models.Model):
+    in_p_playid = models.IntegerField()
+    in_p_handid = models.IntegerField(default = 0)
+    
+
 class Hand(models.Model):
     hand_num = models.IntegerField()   
     hand_complete = models.BooleanField(default=False)
