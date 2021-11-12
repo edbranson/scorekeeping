@@ -25,20 +25,11 @@ from django.views.generic import RedirectView
 from . import views
 
 
-# urlpatterns = [
-#     path('admin/', admin.site.urls),
-# ] 
-
 urlpatterns = [
     path('play/', views.PlayListView.as_view(), name='play-list'),
     path('play/archive', views.PlayArchiveListView.as_view(), name='play-archive-list'),
     path('play/<int:pk>', views.PlayDetailView.as_view(), name='play-detail'),
     path('play/create', views.PlayCreate.as_view(), name='play-create'),
     path('play/<int:pk>/update/', views.PlayUpdate.as_view(), name='play-update'),
-    path('play/<int:pk>/delete/', views.PlayDelete.as_view(), name='play-delete'),
-    
+    path('play/<int:pk>/delete/', views.PlayDelete.as_view(), name='play-delete')   
 ]
-
-# urlpatterns += [
-#     path('accounts/', include('django.contrib.auth.urls')),
-# ]

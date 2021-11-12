@@ -11,7 +11,6 @@ from datetime import date
 # Create your views here.
 
 class PlayCreate(View):
-    model = Play
     
     def post(self, request):       
         # Create a form instance and populate it with data from the request (binding):
@@ -25,7 +24,7 @@ class PlayCreate(View):
             play.play_date = form.cleaned_data['play_date']
             play.play_complete = form.cleaned_data['play_complete']
             play.save()
-            return HttpResponseRedirect(reverse('play-list') )
+            return HttpResponseRedirect(reverse('start-play') )
         else:
             proposed_location = "xxx"
             proposed_date = date.today()
@@ -38,6 +37,7 @@ class PlayCreate(View):
         proposed_location = ""
         proposed_date = date.today()
         form = PlayCreateForm(initial={'location': proposed_location, 'play_date': proposed_date})
+        
         context = {'form':form,}    
         return render(request, 'play_form_new.html', context)  
 

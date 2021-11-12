@@ -15,4 +15,4 @@ class GameCreateForm(forms.Form):
         
         # Remember to always return the cleaned data.
         return (description, rules_link, rules_text)
-        # return description
+        

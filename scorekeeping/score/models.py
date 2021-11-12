@@ -1,9 +1,11 @@
 from django.db import models
+from django.urls import reverse
 
 from django.contrib import admin
 from player.models import Player
 from game.models import Game
 from play.models import Play
+
 
 # Create your models here.
 
@@ -23,40 +25,29 @@ class Hand(models.Model):
         return f'{self.hand_num}, {self.hand_complete}'
 
 class Score(models.Model):
-     play = models.ForeignKey(Play, on_delete=models.PROTECT, default="")
-     game = models.ForeignKey(Game, on_delete=models.PROTECT, default="")
-     player = models.ForeignKey(Player, on_delete=models.PROTECT, default="")
-     hand = models.ForeignKey(Hand, on_delete=models.PROTECT, default="")
-     amount = models.IntegerField()
+    play = models.ForeignKey(Play, on_delete=models.PROTECT, default="")
+    game = models.ForeignKey(Game, on_delete=models.PROTECT, default="")
+    player = models.ForeignKey(Player, on_delete=models.PROTECT, default="")
+    hand = models.ForeignKey(Hand, on_delete=models.PROTECT, default="")
+    amount = models.IntegerField()
 
-     def get_absolute_url(self):
+    def get_absolute_url(self):
         """Returns the url to access a particular score instance."""
-        return reverse('score-detail', args=[str(self.id)])
+        return reverse('enter-score', args=[str(self.id)])
 
-     def __str__(self):
+    def get_absolute_url_update(self):
+        """Returns the url to access a particular score instance."""
+        return reverse('update-score', args=[str(self.id)])   
+        
+    def __str__(self):
           return f'{self.id} - {self.amount}'    
 
+class ScoreTotals(models.Model):
+    play = models.ForeignKey(Play, on_delete=models.PROTECT, default="")
+    player = models.ForeignKey(Player, on_delete=models.PROTECT, default="")
+    hand = models.ForeignKey(Hand, on_delete=models.PROTECT, default='')
+    hand_total = models.IntegerField(default=0)
+    play_total = models.IntegerField(default=0)
 
-# class MMPlayer(models.Model):   
-#     players = models.ManyToManyField('player.Player', through="PlayPlayer", through_fields=('mmplayer', 'player'))
-
-#     def __str__(self):
-#         return f'{self.id} - {self.players.name}'
-
-
-# class MMHand(models.Model):
-#     hands = models.ManyToManyField('Hand', through="PlayHand", through_fields=('mmhand', 'hand')) 
-
-# class PlayHand(models.Model):
-#     mmhand = models.ForeignKey(MMHand, on_delete=models.PROTECT, default ="", null=True, blank=True)
-#     hand = models.ForeignKey(Hand, on_delete=models.PROTECT, default ="", null=True, blank=True)
-
-#     # def __str__(self):
-#     #             return f' MMHandr id: {self.mmhand.id} - Hand#: {self.hand.hand_num}' 
-
-# class PlayPlayer(models.Model):
-#     player = models.ForeignKey('player.Player', on_delete=models.PROTECT, default ="", null=True, blank=True)
-#     mmplayer = models.ForeignKey(MMPlayer, on_delete=models.PROTECT, default ="", null=True, blank=True)    
-
-#     # def __str__(self):
-#     #         return f' MMPlayer id: {self.mmplayer.id} - Player: {self.player.name}'    
+    def __str__(self):
+          return f'{self.id} - {self.player} - {self.hand_total} - {self.play_total}'

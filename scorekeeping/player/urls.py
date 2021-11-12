@@ -17,12 +17,10 @@ Including another URLconf
 from django.urls import path
 from django.contrib import admin
 from django.urls import include
-#Add URL maps to redirect the base URL to our application
 from django.views.generic import RedirectView
-
 from . import views
 
-
+#Add URL maps to redirect the base URL to our application
 urlpatterns = [
     path('player/', views.PlayerListView.as_view(), name='player-list'),
     path('player/<int:pk>', views.PlayerDetailView.as_view(), name='player-detail'),

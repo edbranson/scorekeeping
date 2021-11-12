@@ -24,21 +24,11 @@ from django.views.generic import RedirectView
 
 from . import views
 
-
-# urlpatterns = [
-#     path('admin/', admin.site.urls),
-# ] 
-
 urlpatterns = [
     path('home/', views.index, name='index'),
     path('game/', views.GameListView.as_view(), name='game-list'),
     path('game/<int:pk>', views.GameDetailView.as_view(), name='game-detail'),
     path('game/create', views.GameCreate.as_view(), name='game-create'),
     path('game/<int:pk>/update/', views.GameUpdate.as_view(), name='game-update'),
-    path('game/<int:pk>/delete/', views.GameDelete.as_view(), name='game-delete'),
-    
+    path('game/<int:pk>/delete/', views.GameDelete.as_view(), name='game-delete'),   
 ]
-
-# urlpatterns += [
-#     path('accounts/', include('django.contrib.auth.urls')),
-# ]

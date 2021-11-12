@@ -16,10 +16,9 @@
 <body>
     {% block content %}
     <h1> Game Selected</h1> 
-    <p>{{game_desc}} - {{play_date}} - {{location}} - Playid: {{play_id_selected}}</p>
-    
-        
-    <p> <a href="{% url 'choose-players' %}">Choose Players</a></p>
+    <p>{{play.game.description}} - {{play.play_date}} - {{play.location}} - Playid: {{play_id_selected}}</p>
+         
+    <p> <a href="{% url 'choose-players' %}">Choose Players</a> ---  <a href="{% url 'game-complete' %}">Mark this game complete.</a></p>
   {% endblock %}
 </body>
 </html>

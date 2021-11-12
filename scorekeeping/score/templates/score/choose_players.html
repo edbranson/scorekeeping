@@ -23,8 +23,17 @@
       <table border="1">
         {{ form }}
       </table>
-      <button type"submit">Save</button><br>
-      <a href="{% url 'choose-players' %}">CANCEL</a>
+      <button type"submit">Save</button>  ---   <a href="{% url 'start-play' %}">CANCEL</a> ---  <a href="{% url 'game-play' %}">CONTINUE</a><br><br><br>
+      
+
+      {% for player in players %}
+      <ul>
+        <li>
+          {{player}} ---<a class="text-danger" href="{{ player.get_absolute_url_remove }}">Remove</a>
+        </li>
+      </ul>
+      {% endfor %}
+
     </form>
     
   {% endblock %}

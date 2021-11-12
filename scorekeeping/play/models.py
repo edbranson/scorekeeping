@@ -1,10 +1,9 @@
 from django.db import models
 from datetime import datetime
-from django.urls import reverse # Used to generate URLs by reversing the URL patterns
+from django.urls import reverse 
 from django.contrib import admin
 from game.models import Game
 from player.models import Player
-# from play.models import Play
 # Create your models here.
 
 class Play(models.Model):
@@ -25,9 +24,9 @@ class Play(models.Model):
         return reverse('play-select', args=[str(self.id)])
 
     def get_absolute_url_choose(self):
-        return reverse('choose-player', args=[str(self.id)])          
+        return reverse('choose-player', args=[str(self.id)])         
 
     def __str__(self):
-        return f'{self.game.description},  {self.play_date},  {self.location},  {self.play_complete}'
+        return f'{self.game.description},  {self.play_date},  {self.location}'
 
 

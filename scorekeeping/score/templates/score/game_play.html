@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 {% extends "base_generic.html" %}
 {% load static %}
+<!-- Bootstrap -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="mainbs.css" type="text/css"    
 <link rel="stylesheet" type="text/css" href="{% static 'play/style.css' %}">
 
 <html lang="en">
@@ -16,14 +19,89 @@
 <body>
     {% block content %}
     <h1> Game Play</h1> 
-    <p>{{game_desc}} - {{play_date}} - {{location}} - Playid: {{play_id_selected}}</p>
-    <p>Hand number: {{hand}}</p>
-    {% for player in players %}
-    <ol>
-      <li> {{player}}
-    </ol>
-    {% endfor %}    
+    <p>{{play.game.description}} - {{play.play_date}} - {{play.location}} - Playid: {{play.id}}</p>
+    <p>Hand number: {{hand.hand_num}} --- <a href="{% url 'hand-complete' %}">New Hand</a> --- <a href="{% url 'choose-players' %}">Add Player</a> --- <a href="{% url 'game-complete' %}">Game Complete</a> --- </p>
+    
+      
     <div></div>
+    <div class="container">
+      <div class = row>
+        <div class="col-md-3 col-sm-3">
+          <br>
+          <h4>Player</h4>
+        </div>  
+        <div class="col-md-3 col-sm-3">
+          <h4>Hand</h4>
+          <h4>Score</h4><br>
+        </div>
+        <div class="col-md-3 col-sm-3">
+          <h4>Game</h4>
+          <h4>Score</h4>
+        </div>
+        <div class="col-md-3 col-sm-3">
+          <br>
+          <h4>***</h4>
+        </div>    
+      </div>
+      <div class=row>
+        <!-- <div class="col-md-4 col-sm-4"> 
+          <ul>
+            {% for player in players %}
+                <li><a href="{{ player.get_absolute_url_score }}">{{ player.name }}</a></li>
+            {% endfor %}
+          </ul>
+          
+          </ul>
+          </div> -->
+      {% for player in players %}   
+        <div class="col-md-3 col-sm-3">     
+          <h5>
+            {{player.name}}
+          </h5>
+          <p><a class="btn btn-info" href="{{ player.get_absolute_url_score }}">Enter Score for : {{ player.name }}</a></p>
+                 
+        </div>
+        <div class="col-md-3 col-sm-3"> 
+          <p>
+            
+             {% for x in summary %}
+                {% if x.player == player %}   
+                <p>{{ x.hand_total }}</p>
+                {% endif %}
+              
+            {% endfor %}          
+             
+          </p>
+        </div>
+        <div class="col-md-3 col-sm-3"> 
+          <p>
+            <p> {% for x in summary %}
+              {% if x.player == player %}   
+              <p>{{ x.play_total }}</p>
+              {% endif %}
+            
+          {% endfor %}
+          </p>
+          </p>
+        </div>
+        <div class="col-md-3 col-sm-3"> 
+          <p>
+            <a class="text-danger" href="{{ player.get_absolute_url_remove }}">Remove</a>
+          </p>
+        </div>
+        {% if forloop.counter|divisibleby:1 %}
+      </div>
+      <div class=row>
+        {% endif %}
+        {% endfor %}
+      </div>  
+      
+    </div>
+    
   {% endblock %}
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>
 </html>
